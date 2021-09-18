@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     var timer:Timer!
     //画像の配列
     var imageArray:[UIImage] = [
-        UIImage(named:"a")!,
+        UIImage(named:"a")! ,
         UIImage(named:"b")! ,
         UIImage(named:"c")! ,
         UIImage(named:"d")! ,
@@ -37,12 +37,26 @@ class ViewController: UIViewController {
         let zoomViewConroller:zoomViewController = segue.destination as! zoomViewController
         zoomViewConroller.x = nowIndex
         
+        //タイマーを止める
+        
+        if timer != nil {
+            timer.invalidate()
+            
+        }
+        
+        
         
     }
     
     @IBAction func unwind(_ segue: UIStoryboardSegue) {
         
-    }
+        if timer != nil {
+            //timer.fire() これだと再開しない
+            timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(changeImage), userInfo: nil, repeats: true)
+        
+            }
+        
+        }
 
     
     @IBAction func playStopSlideshow(_ sender: Any) {
